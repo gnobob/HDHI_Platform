@@ -1,112 +1,96 @@
 # Lovable Foundation Prompt — HDHI Flood & Drainage Monitoring Dashboard
 
-_Paste the prompt below into Lovable as-is to scaffold the initial UI shell. This produces the design/layout foundation only — no real data wiring, no backend, no simulated-device integration. Those are covered in the Tracker (`HDHI_DASHBOARD_TRACKER.md`) as Phase 2 onward, once this foundation exists in the repo._
+_Paste the prompt below into Lovable as-is. Written in the same discipline as your AXONIS GridSonar prompt: narrative brand direction instead of exact hex/token values, no prescribed tech stack, one clearly-prioritized screen, vivid mock content — leaving Lovable room to reach for its own modern implementation rather than copying a spec. Expect a follow-up conversation to refine details (panel glass effect, spacing, etc.), same as AXONIS needed._
 
 ---
 
 ## Prompt to paste into Lovable
 
 ```
-Build a web dashboard for a highway drainage health monitoring system. This is an
-operations/engineering dashboard for civil engineers and DPWH maintenance planners —
-not a consumer app. Dark, technical, industrial tone: think network operations center,
-not a SaaS marketing dashboard.
+Design a dark, high-tech enterprise dashboard called HDHI Monitor, a highway drainage
+health monitoring platform for civil engineers and DPWH maintenance planners. This is
+a UI/visual design exercise only: use mock/placeholder data throughout, no real
+backend, no live data connections, no real Cesium or 3D engine integration — represent
+the 3D panels as high-fidelity static visual placeholders that convey what they'll
+eventually show, not functional 3D viewers. Focus entirely on layout, typography,
+color, spacing, and micro-animations.
 
-DESIGN LANGUAGE
-- Dark blue-black background using OKLCH color space (background: oklch(0.16 0.02 240),
-  panels: oklch(0.19 0.025 240), elevated panels: oklch(0.23 0.03 235)) — not flat black,
-  a cool near-navy dark tone
-- Primary accent: teal (oklch(0.82 0.15 195)), used for active states, live data,
-  primary actions, with a soft glow effect on key active elements (box-shadow using the
-  same teal at low opacity, layered at two blur radii for a subtle halo)
-- Full 5-tier severity/status scale, not just 2-3 colors: advisory (soft blue),
-  info (teal-green), elevated (amber/gold), high (orange), critical (red) — each status
-  badge uses its own color consistently across the whole app (dots, badges, left-edge
-  card borders)
-- A critical-state glow effect (red box-shadow halo) mirroring the teal glow, reserved
-  for critical alerts/status only, so it reads as urgent by contrast with the normal
-  teal glow
-- Subtle background texture: a faint 32px×32px grid-line pattern across the page
-  background (two 1px linear-gradients at ~3% white opacity, one horizontal one
-  vertical), plus soft ambient radial-gradient glows in the corners (low-opacity teal/
-  cyan blobs, fixed position, barely visible — adds depth without being distracting)
-- Fonts: a monospace font for headings/labels/data (e.g. JetBrains Mono, tight letter-
-  spacing) giving a technical/terminal feel, a clean sans-serif for body text (e.g. Inter)
-- Single theme only, no light mode — this is a control-room tool, always dark
-- Card-based layout ("panels"), thin low-opacity hairline borders, rounded corners
-  (~0.5rem), no heavy shadows except the teal/critical glow accents above — flat/glass
-  panel aesthetic over skeuomorphic depth
-- Fully responsive — sidebar collapses to icons-only or a drawer on narrower viewports,
-  the Live Monitoring dual-panel layout stacks vertically on mobile, all tables/cards
-  reflow rather than overflow
+BRAND IDENTITY (match this, don't invent a new style):
 
-OPTIONAL — FLOATING ASSISTANT PANEL
-If straightforward to include, add a collapsible floating assistant panel (bottom-right
-corner, toggle button when closed) — a chat-style panel labeled something like
-"[Assistant Name] · Drainage Copilot", with a "Simulated · ready to connect" subtitle, a
-short intro message, a few suggested-prompt quick-action buttons (e.g. "Check active
-critical segments", "Summarize latest flood simulation", "Explain current HDHI score"),
-and a text input with a visible "mock mode" indicator. Mock responses only at this
-stage — this is a UI placeholder for a future AI assistant feature, not a real
-integration.
+Dark near-black or deep navy background, electric teal accent color for active states
+and live data, a subtle grid-line texture across the background reminiscent of
+technical survey grids or blueprints, soft ambient glow effects behind key panels and
+active elements, clean sans-serif or monospace-leaning typography for a technical,
+instrumentation feel. A serious civil-engineering/infrastructure-monitoring tone,
+not a playful consumer app feel. Think: a hydrological command center for flood-risk
+planning, not a weather app.
 
-PAGES (sidebar navigation, top bar shows connection status + active alert count)
+LAYOUT:
 
-1. LIVE MONITORING (default/landing page)
-   Two side-by-side 3D panels, equal width, each in its own card:
-   - LEFT PANEL: placeholder container for a Cesium 3D terrain/globe view (label it
-     "Flood Simulation — LiDAR Terrain", leave as a styled empty container with a
-     "connecting to terrain service" loading state — the real Cesium integration is a
-     separate build step, not part of this scaffold)
-   - RIGHT PANEL: placeholder container for a rotating 3D culvert/pipe model (label it
-     "Culvert Status — Real-Time", also a styled empty container with the same loading
-     pattern — the real 3D model viewer is wired in separately)
-   Below both panels: a horizontal strip of small status cards, one per monitored
-   culvert/segment, each showing: segment name, a colored status dot (using the 5-tier
-   severity scale above: info/elevated/high/critical as relevant, teal for normal),
-   current water level reading, current flow velocity reading — use placeholder mock
-   values for now.
+Left sidebar navigation, collapsible, with a top bar showing a MODE indicator
+(LIVE/SIMULATED toggle-style), active monitored-segment count, and active alert count
+as small stat chips.
 
-2. DASHBOARD (summary/overview page)
-   Grid of summary cards at the top: total monitored segments, segments currently
-   healthy vs. at-risk, overall average HDHI score (large number, prominent), active
-   alerts count. Below that, a card showing "Hydraulic Performance Index (HPI)" per
-   segment as a simple horizontal bar list (mock data). Below that, a recent-activity
-   feed card (mock entries: "Segment 3 — differential rise detected", timestamps).
+SIDEBAR NAV ITEMS, split into two visually distinct groups:
 
-3. ANALYTICS
-   A page for time-series trends. Include placeholder line-chart cards for: water
-   level over time, flow velocity over time, HDHI score over time — one selector
-   dropdown to choose which segment to view. Use mock/dummy chart data for now.
+Active group (fully clickable, normal styling):
+- Live Monitoring
+- Dashboard
+- Analytics
+- Logs
+- Settings
 
-4. LOGS
-   A simple filterable table: timestamp, segment, event type (normal / rainfall
-   loading / possible clog / maintenance note), severity, short description. Include
-   a search bar and a severity filter dropdown. Mock rows are fine.
+Locked group (visually present but styled as disabled/muted, each with a small
+"Coming in v2" badge, still show an icon and label, just clearly not active):
+- Multi-Site Comparison
+- DPWH Records Sync
+- Predictive Maintenance Scheduler
+- Public Flood Alert Broadcast
+- Historical Flood Archive
+- Mobile Field Companion
 
-5. SETTINGS
-   Form-style page with sections: "Sensor Sensitivity" (sliders or numeric inputs per
-   segment for water-level and velocity thresholds), "Alert Preferences" (toggles for
-   notification types), "Manual Override" (a control to mark a segment as under
-   manual maintenance, pausing its automated alerts). No real save logic needed yet,
-   just the UI.
+SCREEN 1, Live Monitoring (this is the most important screen, spend the most design
+effort here):
 
-TECH
-- React + TypeScript + Tailwind
-- Use a component library consistent with shadcn/ui conventions (cards, buttons,
-  tables, dropdowns, sliders, badges/status dots)
-- Structure pages as real routes (not a single-page mock), sidebar nav persists
-  across all pages
-- All data on every page should be clearly mock/placeholder data at this stage —
-  structure it so it's obviously easy to swap for real API calls later (e.g. a single
-  mock-data file or hook per page, not values hardcoded inline all over the JSX)
+Two side-by-side high-fidelity panels forming the centerpiece of the dashboard:
+- LEFT PANEL: a stylized 3D terrain/topography view labeled "Flood Simulation —
+  LiDAR Terrain," showing a translucent blue flood-extent overlay spreading across
+  a mocked terrain mesh near a road/culvert — convey the impression of water rising
+  across real ground, not a flat map.
+- RIGHT PANEL: a rotating 3D culvert/pipe network view labeled "Culvert Status —
+  Real-Time," with individual pipe segments color-coded by condition.
+Design one specific segment in the right panel as clearly at risk — glowing amber or
+red with a subtle pulse animation and a short annotation like "Segment 3 — inlet/
+outlet differential rising, possible restriction" — while the other segments stay
+calm teal/green and visually quiet. The visual point is that a viewer should
+immediately understand, at a glance and without reading a table, which segment needs
+attention and that the rest of the network is healthy.
 
-Do not attempt to integrate real Cesium, real 3D model viewers, or any backend/API
-calls in this pass — this is the visual/structural foundation only.
+Below both panels: a horizontal strip of small status cards, one per monitored
+segment, each showing a segment name, a colored status dot, current water level, and
+current flow velocity, using believable mock values.
+
+SCREEN 2, Dashboard (overview/summary):
+
+Summary cards across the top: total monitored segments, healthy vs. at-risk count, an
+overall HDHI score shown as a large, prominent number, and active alert count. Below
+that, a horizontal bar list showing Hydraulic Performance Index per segment. Below
+that, a recent-activity feed with realistic mock entries phrased like real system
+output, e.g. "Segment 3 — inlet/outlet differential rising, possible restriction,"
+"Segment 7 — rainfall loading detected, normal response," each with a timestamp and
+severity indicator consistent with Screen 1's color language.
+
+Please provide both screens as part of one cohesive dashboard flow, not two
+disconnected mockups — visual language (colors, panel style, iconography, the status/
+severity color scale) must stay consistent across both, and should extend naturally
+to the remaining nav items (Analytics, Logs, Settings) even though this pass only
+designs the two screens above in detail.
 ```
 
 ---
 
 ## After this scaffold exists
 
-Once Lovable generates this and it's pulled into your own repo (per your note — reference the design, don't fork the Lovable repo directly), proceed to `HDHI_DASHBOARD_TRACKER.md` starting at Phase 2, which wires in: the simulated hardware data layer, the Analyzer/Simulator/Predictor/Explainer logic, real Cesium + culvert 3D model integration, and real data flowing into the Dashboard/Analytics/Logs/Settings pages this scaffold already laid out.
+Once Lovable generates this and it's pulled into your own repo (per your note — reference the design, don't fork the Lovable repo directly, drop the output into `interfaces/dashboard/hdhi-ui/`), proceed to `HDHI_DASHBOARD_TRACKER.md` starting at Phase 2, which wires in: the simulated hardware data layer, the Analyzer/Simulator/Predictor/Explainer logic, real Cesium + culvert 3D model integration, and real data flowing into the Dashboard/Analytics/Logs/Settings pages this scaffold already laid out.
+
+Expect this to take a few follow-up messages in Lovable to land exactly right — your AXONIS prompt needed a "make it glass" round after the first pass too. Worth iterating live rather than trying to pre-specify everything here.
